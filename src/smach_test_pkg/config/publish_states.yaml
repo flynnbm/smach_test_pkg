@@ -1,0 +1,9 @@
+states:
+  - name: STATE_ONE
+    message: "Hello from state one!"
+  - name: STATE_TWO
+    message: "State two reporting in."
+  - name: STATE_THREE
+    message: "This is the final state."
+  - name: STATE_FOUR
+    message: "Just kidding, there was one more! Haha."
