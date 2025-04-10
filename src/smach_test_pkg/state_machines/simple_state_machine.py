@@ -1,5 +1,6 @@
 import smach
 from smach_test_pkg.states.publish_state import PublishState
+from smach_test_pkg.states.move_to_named_pose_state import MoveToNamedPoseState
 
 # Main state machine
 def main():
@@ -17,6 +18,9 @@ def main():
                                transitions={'next': 'STATE_THREE'})
         smach.StateMachine.add('STATE_THREE', PublishState(node, 'STATE_THREE', 'Wrapping up!'),
                                transitions={'next': 'done'})
+        smach.StateMachine.add('MOVE_TO_INSPECT', MoveToNamedPoseState(node, 'inspect'),
+                           transitions={'success': 'done',
+                                        'failure': 'done'})
 
     sm.execute()
     node.get_logger().info("State machine finished.")
