@@ -6,4 +6,4 @@ states:
   - name: STATE_THREE
     message: "This is the final state."
   - name: STATE_FOUR
-    message: "Just kidding, there was one more! Haha."
+    message: "Added an extra state for testing."
