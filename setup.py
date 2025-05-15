@@ -18,6 +18,7 @@ setup(
         'rclpy',
         'smach',
         'std_msgs',
+        'geometry_msgs',
     ],
     zip_safe=True,
     maintainer='csrobot',
@@ -28,7 +29,7 @@ setup(
     entry_points={
         'console_scripts': [
             'simple_state_machine = smach_test_pkg.state_machines.simple_state_machine:main',
-            'yaml_to_smach_state_machine = smach_test_pkg.state_machines.yaml_to_smach_state_machine:main',
+            'pick_and_place = smach_test_pkg.state_machines.pick_and_place:main',
         ],
     },
 )
