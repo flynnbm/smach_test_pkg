@@ -5,14 +5,16 @@ from control_msgs.action import GripperCommand
 
 
 class GripperCommandState(smach.State):
-    def __init__(self, node, robot_name: str, position: float = 0.01, max_effort: float = 40.0, timeout_sec: float = 5.0):
+    def __init__(self, node, userdata, timeout_sec: float = 5.0): #robot_name: str, position: float = 0.01, max_effort: float = 40.0, timeout_sec: float = 5.0):
         smach.State.__init__(self, outcomes=['success', 'failure'])
         self.node = node
-        self.position = position
-        self.max_effort = max_effort
+        self.userdata = userdata
+        # self.position = position
+        # self.max_effort = max_effort
         self.timeout_sec = timeout_sec
 
-        self.action_name = f"/{robot_name}_hand_controller/gripper_cmd"
+
+        self.action_name = f"/{userdata.robot_name}_hand_controller/gripper_cmd"
         self._client = ActionClient(node, GripperCommand, self.action_name)
 
     def feedback_cb(self, feedback_msg):
@@ -35,11 +37,11 @@ class GripperCommandState(smach.State):
             return 'failure'
         
         # Log goal values for verification
-        self.node.get_logger().info(f"[GripperCommandState] Sending goal: position={self.position}, max_effort={self.max_effort}")
+        self.node.get_logger().info(f"[GripperCommandState] Sending goal: position={self.userdata.position}, max_effort={self.userdata.max_effort}")
 
         goal_msg = GripperCommand.Goal()
-        goal_msg.command.position = self.position
-        goal_msg.command.max_effort = self.max_effort
+        goal_msg.command.position = self.userdata.position
+        goal_msg.command.max_effort = self.userdata.max_effort
 
         future = self._client.send_goal_async(goal_msg)
         rclpy.spin_until_future_complete(self.node, future)
