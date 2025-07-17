@@ -63,19 +63,19 @@ def main():
                                             'failure': 'done'})
         smach.StateMachine.add('MOVE_TO_APPROACH_POSE', MoveToPoseState(node, userdata, 5.0),
                            transitions={'success': 'OPEN_GRIPPER',
-                                        'failure': 'done'})    
+                                        'failure': 'MOVE_TO_NEUTRAL'})    
         smach.StateMachine.add('OPEN_GRIPPER', GripperCommandState(node, userdata),
                            transitions={'success': 'MOVE_TO_GRASP_POSE',
                                         'failure': 'done'})
         smach.StateMachine.add('MOVE_TO_GRASP_POSE', MoveToPoseState(node, userdata, 5.0),
                            transitions={'success': 'CLOSE_GRIPPER',
-                                        'failure': 'done'}) 
+                                        'failure': 'MOVE_TO_NEUTRAL'}) 
         smach.StateMachine.add('CLOSE_GRIPPER', GripperCommandState(node, userdata),
                            transitions={'success': 'MOVE_TO_RETREAT_POSE',
                                         'failure': 'done'})
         smach.StateMachine.add('MOVE_TO_RETREAT_POSE', MoveToPoseState(node, userdata, 5.0),
                            transitions={'success': 'MOVE_TO_NEUTRAL_2',
-                                        'failure': 'done'}) 
+                                        'failure': 'MOVE_TO_NEUTRAL'}) 
         smach.StateMachine.add('MOVE_TO_NEUTRAL_2', MoveToNamedPoseState(node, userdata.ready_pose, 5.0),
                            transitions={'success': 'MOVE_TO_DROPOFF',
                                         'failure': 'done'})
